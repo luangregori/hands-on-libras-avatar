@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Unity, { UnityContent } from "react-unity-webgl";
+
+const PLAYER_MANAGER = 'PlayerManager';
 
 function App() {
+  function handleClick() {
+    unityContent.send(PLAYER_MANAGER, 'playNow', 'MÉDICO');
+  }
+
+  const unityContent = new UnityContent(
+    'build/playerweb.json',
+    'build/UnityLoader.js',
+  );
+
+  window.onLoadPlayer = () => {
+    unityContent.send(PLAYER_MANAGER, 'initRandomAnimationsProcess');
+    unityContent.send(PLAYER_MANAGER, 'setURL', '');
+    unityContent.send(PLAYER_MANAGER, 'setBaseUrl', 'https://dicionario2.vlibras.gov.br/2018.3.1/WEBGL/');
+    unityContent.send(PLAYER_MANAGER, 'setSubtitlesState', 1);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={handleClick}>Teste</button>
+      <Unity unityContent={unityContent}/>
     </div>
   );
 }
