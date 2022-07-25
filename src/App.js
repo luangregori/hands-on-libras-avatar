@@ -17,7 +17,7 @@ function App() {
     unityContent.send(PLAYER_MANAGER, 'initRandomAnimationsProcess');
     unityContent.send(PLAYER_MANAGER, 'setURL', '');
     unityContent.send(PLAYER_MANAGER, 'setBaseUrl', 'https://dicionario2.vlibras.gov.br/2018.3.1/WEBGL/');
-    unityContent.send(PLAYER_MANAGER, 'setSubtitlesState', 1);
+    unityContent.send(PLAYER_MANAGER, 'setSubtitlesState', 0);
   };
 
   return (
