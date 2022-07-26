@@ -32,15 +32,21 @@
 
     player.on('load', function () {
       player.setPersonalization('');
-      console.log('LOAD PLAYER')
+      player.toggleSubtitle();
+      let word = getQueryParams('word');
+      player.play(word);
+      console.log('LOAD PLAYER:', word);
     });
+
+    const getQueryParams = (paramName) => {
+      const queryParams = new URLSearchParams(window.location.search);
+      return queryParams.get(paramName);
+    }
 
     player.load(document.getElementById('wrapper'));
   </script>
 
   <div style="text-align: center; ">
-    <i class="ph-alien" onclick="function foo(){ player.play('OLÁ') };foo()"></i>
-
     <i class="ph-play" onclick="function foo(){ player.continue() };foo()"></i>
     <i class="ph-pause" onclick="function foo(){ player.pause() };foo()"></i>
     <i class="ph-repeat" onclick="function foo(){ player.repeat() };foo()"></i>
