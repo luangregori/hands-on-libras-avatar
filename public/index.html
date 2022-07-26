@@ -29,18 +29,21 @@
     var player = new VLibras.Player({
       target: { name: 'rnp_webgl', path: './target' }
     });
-    
+
     player.on('load', function () {
+      if (window.ReactNativeWebView) {
+        window.ReactNativeWebView.postMessage("PLAYER_LOADED");
+      }
       player.setPersonalization('');
       player.toggleSubtitle();
       canShowCC();
-      
+
       let word = getQueryParams('word');
       player.play(word);
-      
+
       console.log('Player loaded with word:', word);
     });
-    
+
     const getQueryParams = (paramName) => {
       const queryParams = new URLSearchParams(window.location.search);
       return queryParams.get(paramName);
