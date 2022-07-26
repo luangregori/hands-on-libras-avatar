@@ -29,29 +29,42 @@
     var player = new VLibras.Player({
       target: { name: 'rnp_webgl', path: './target' }
     });
-
+    
     player.on('load', function () {
       player.setPersonalization('');
       player.toggleSubtitle();
+      canShowCC();
+      
       let word = getQueryParams('word');
       player.play(word);
-      console.log('LOAD PLAYER:', word);
+      
+      console.log('Player loaded with word:', word);
     });
-
+    
     const getQueryParams = (paramName) => {
       const queryParams = new URLSearchParams(window.location.search);
       return queryParams.get(paramName);
+    }
+
+    const showCC = getQueryParams('cc');
+
+    const canShowCC = () => {
+      console.log('canShowCC', showCC);
+      if (showCC === 'true') {
+        document.getElementsByClassName("ph-closed-captioning")[0].style.color = "black";
+        player.toggleSubtitle();
+      } else {
+        document.getElementsByClassName("ph-closed-captioning")[0].style.color = "gray";
+      }
     }
 
     player.load(document.getElementById('wrapper'));
   </script>
 
   <div style="text-align: center; ">
-    <i class="ph-play" onclick="function foo(){ player.continue() };foo()"></i>
-    <i class="ph-pause" onclick="function foo(){ player.pause() };foo()"></i>
     <i class="ph-repeat" onclick="function foo(){ player.repeat() };foo()"></i>
     <i class="ph-gauge" style="color: gray"></i>
-    <i class="ph-closed-captioning" onclick="function foo(){ player.toggleSubtitle() };foo()"></i>
+    <i class="ph-closed-captioning" onclick="canShowCC()"></i>
     <i class="ph-swap" onclick="function foo(){ player.changeAvatar() };foo()"></i>
   </div>
 </body>
