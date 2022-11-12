@@ -44,6 +44,13 @@
       console.log('Player loaded with word:', word);
     });
 
+    player.on('gloss:end', function () {
+      console.log('Gloss End');
+      if (window.ReactNativeWebView) {
+        window.ReactNativeWebView.postMessage("GLOSS_END");
+      }
+    });
+
     const getQueryParams = (paramName) => {
       const queryParams = new URLSearchParams(window.location.search);
       return queryParams.get(paramName);
