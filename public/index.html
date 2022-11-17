@@ -44,10 +44,10 @@
       console.log('Player loaded with word:', word);
     });
 
-    player.on('gloss:end', function () {
-      console.log('Gloss End');
+    player.on('response:glosa', function () {
+      console.log('Response Glosa');
       if (window.ReactNativeWebView) {
-        window.ReactNativeWebView.postMessage("GLOSS_END");
+        window.ReactNativeWebView.postMessage("GLOSSA_LOADED");
       }
     });
 
